@@ -1,10 +1,10 @@
 {
     "manifest_version": 3,
-    "name": "Kahoot Question Viewer",
+    "name": "KahootAI Assistant",
     "version": "1.0",
     "description": "Displays Kahoot questions and answers in a floating window with AI suggestions",
     "action": {
-        "default_title": "Click to open Kahoot Viewer settings",
+        "default_title": "Click to open KahootAI Assistant settings",
         "default_icon": {
             "16": "icon16.png",
             "48": "icon48.png",

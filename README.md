@@ -1,9 +1,9 @@
-# Kahoot Question Viewer Extension 🎯
+# KahootAI Assistant 🎯
 
 A Chrome extension that enhances your Kahoot experience by providing AI-powered answer suggestions through a minimalistic, non-intrusive floating indicator.
 
 <div align="center">
-  <img src="icon128.png" alt="Kahoot Question Viewer Logo" width="128" height="128">
+  <img src="icon128.png" alt="KahootAI Assistant Logo" width="128" height="128">
 </div>
 
 ## 🌟 Features
