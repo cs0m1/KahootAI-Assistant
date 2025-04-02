@@ -67,8 +67,8 @@ A Chrome extension that enhances your Kahoot experience by providing AI-powered 
 ### Local Development
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/kahoot-viewer.git
-   cd kahoot-viewer
+   git clone https://github.com/cs0m1/KahootAI-Assistant.git
+   cd KahootAI-Assistant
    ```
 
 2. Load the extension in Chrome:
@@ -83,16 +83,24 @@ A Chrome extension that enhances your Kahoot experience by providing AI-powered 
 
 ### Creating a Release
 1. Update version in `manifest.json`
-2. Create and push a new tag:
+2. Push your changes to the main branch:
    ```bash
-   git tag -a v1.0.0 -m "Release v1.0.0"
-   git push origin v1.0.0
+   git add .
+   git commit -m "Update version to X.Y.Z"
+   git push origin main
    ```
-3. GitHub Actions will automatically:
+3. Create and push a new tag:
+   ```bash
+   git tag -a vX.Y.Z -m "Release vX.Y.Z"
+   git push origin vX.Y.Z
+   ```
+4. GitHub Actions will automatically:
    - Generate extension icons
    - Create a ZIP file
-   - Create a GitHub release
-   - Upload the ZIP as a release asset
+   - Create a GitHub release with the ZIP attached
+   - Upload the ZIP as a workflow artifact
+
+You can also manually trigger a build from the Actions tab on GitHub without creating a release.
 
 ## 🔒 Privacy & Security
 
