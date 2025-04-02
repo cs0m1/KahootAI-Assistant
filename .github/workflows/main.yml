@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       
       # Install required tools (imagemagick for icons)
       - name: Install dependencies
@@ -30,34 +30,18 @@ jobs:
         run: |
           zip -r kahoot-viewer.zip manifest.json background.js content.js options.html options.js icon16.png icon48.png icon128.png README.md
       
-      # Create GitHub Release (only on tag push)
-      - name: Create Release
+      # Create Release and Upload Asset (only on tag push)
+      - name: Release and Upload Asset
         if: startsWith(github.ref, 'refs/tags/')
-        id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
+        with:
+          files: kahoot-viewer.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-      
-      # Upload ZIP file to release (only on tag push)
-      - name: Upload Release Asset
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./kahoot-viewer.zip
-          asset_name: kahoot-viewer.zip
-          asset_content_type: application/zip
       
       # Upload artifact (always)
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: extension-package
           path: kahoot-viewer.zip
