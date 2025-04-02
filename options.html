@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kahoot Viewer Settings</title>
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .setting-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .setting-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+        .description {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .save-status {
+            color: green;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .save-status.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kahoot Viewer Settings</h1>
+    
+    <div class="setting-group">
+        <div class="setting-title">Display Settings</div>
+        <label>
+            <input type="checkbox" id="autoHide"> Auto-hide indicator
+            <div class="description">The colored circle will fade out automatically</div>
+        </label>
+        <label style="margin-top: 10px;">
+            <div>Hide Delay (seconds)</div>
+            <input type="number" id="hideDelay" min="1" value="3" style="width: 100%; margin-top: 5px; padding: 5px;">
+            <div class="description">Time in seconds before the indicator fades out (when auto-hide is enabled)</div>
+        </label>
+        
+        <div style="margin-top: 15px;">
+            <div>Indicator Position</div>
+            <select id="position" style="width: 100%; margin-top: 5px; padding: 5px;">
+                <option value="top-right">Top Right</option>
+                <option value="top-left">Top Left</option>
+                <option value="top-center">Top Center</option>
+                <option value="bottom-right">Bottom Right</option>
+                <option value="bottom-left">Bottom Left</option>
+                <option value="bottom-center">Bottom Center</option>
+            </select>
+        </div>
+
+        <div style="margin-top: 15px;">
+            <div>Indicator Size</div>
+            <select id="size" style="width: 100%; margin-top: 5px; padding: 5px;">
+                <option value="small">Small (10px)</option>
+                <option value="medium">Medium (20px)</option>
+                <option value="large">Large (30px)</option>
+            </select>
+        </div>
+
+        <div style="margin-top: 15px;">
+            <div>
+                <span>Indicator Opacity: <span id="opacityValue">100</span>%</span>
+                <span id="opacityWarning" style="color: #e33f3c; margin-left: 10px; display: none;">
+                    Warning: Low opacity may make the indicator hard to see
+                </span>
+            </div>
+            <input type="range" id="opacity" min="0" max="100" value="100" style="width: 100%; margin-top: 5px;">
+            <div class="description">Adjust how visible the indicator is</div>
+        </div>
+    </div>
+
+    <div class="setting-group" id="api-section">
+        <div class="setting-title">API Settings</div>
+        <label>
+            <div>Gemini API Key</div>
+            <input type="password" id="apiKey" style="width: 100%; margin-top: 5px; padding: 5px;">
+            <div class="description">
+                Get your API key from <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a>
+            </div>
+        </label>
+    </div>
+
+    <div id="saveStatus" class="save-status">Settings saved!</div>
+
+    <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      # Install required tools (imagemagick for icons)
+      - name: Install dependencies
+        run: sudo apt-get install -y imagemagick
+      
+      # Generate icons
+      - name: Generate icons
+        run: |
+          convert -size 128x128 xc:'#46178F' -fill white -font Arial-Bold -pointsize 80 -gravity center -draw "text 0,0 'K'" icon128.png
+          convert icon128.png -resize 48x48 icon48.png
+          convert icon128.png -resize 16x16 icon16.png
+      
+      # Create ZIP file
+      - name: Create ZIP
+        run: |
+          zip -r kahoot-viewer.zip manifest.json background.js content.js options.html options.js icon16.png icon48.png icon128.png README.md
+      
+      # Create GitHub Release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      
+      # Upload ZIP file to release
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./kahoot-viewer.zip
+          asset_name: kahoot-viewer.zip
+          asset_content_type: application/zip

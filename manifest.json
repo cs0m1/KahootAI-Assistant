@@ -1,0 +1,44 @@
+{
+    "manifest_version": 3,
+    "name": "Kahoot Question Viewer",
+    "version": "1.0",
+    "description": "Displays Kahoot questions and answers in a floating window with AI suggestions",
+    "action": {
+        "default_title": "Click to open Kahoot Viewer settings",
+        "default_icon": {
+            "16": "icon16.png",
+            "48": "icon48.png",
+            "128": "icon128.png"
+        }
+    },
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+    "content_scripts": [
+      {
+        "matches": [
+          "*://*.kahoot.it/gameblock*",
+          "*://*.kahoot.it/challenge/*"
+        ],
+        "js": ["content.js"],
+        "run_at": "document_idle"
+      }
+    ],
+    "permissions": [
+      "activeTab",
+      "storage",
+      "scripting",
+      "contextMenus"
+    ],
+    "options_page": "options.html",
+    "host_permissions": [
+      "*://*.kahoot.it/*",
+      "https://generativelanguage.googleapis.com/*"
+    ]
+}
